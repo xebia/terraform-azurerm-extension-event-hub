@@ -49,9 +49,8 @@ module "defaults" {
   reader_group_id             = azuread_group.reader_group.object_id
 
   # event hub
-  event_hub_namespace_name = azurerm_eventhub_namespace.namespace.name
-  resource_group_name      = azurerm_resource_group.rg.name
-  name                     = "event-hub"
-  partition_count          = 2
-  message_retention        = 1
+  event_hub_namespace_id = azurerm_eventhub_namespace.namespace.id
+  name                   = "event-hub"
+  partition_count        = 2
+  message_retention      = 1
 }
