@@ -1,9 +1,7 @@
 resource "azurerm_eventhub" "eventhub" {
   provider = azurerm.eventhub
 
-  namespace_name      = var.event_hub_namespace_name
-  resource_group_name = var.resource_group_name
-
+  namespace_id      = var.event_hub_namespace_id
   name              = var.name
   message_retention = var.message_retention
   partition_count   = var.partition_count
