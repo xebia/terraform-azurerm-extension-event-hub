@@ -3,17 +3,17 @@ variable "event_hub_namespace_id" {
   type        = string
 }
 
-variable "name" {
-  description = "The name of the Event Hub."
-  type        = string
-}
-
-variable "message_retention" {
-  description = "The message retention period for the Event Hub."
-  type        = number
-}
-
-variable "partition_count" {
-  description = "The number of partitions for the Event Hub."
-  type        = number
+variable "eventhubs" {
+  description = "A list of Event Hubs to create within the namespace."
+  type = list(object({
+    name                      = string
+    message_retention_in_days = optional(number, 1)
+    partition_count           = optional(number, 2)
+    status                    = optional(string, "Active")
+  }))
+  default = []
+  validation {
+    condition     = alltrue([for eh in var.eventhubs : contains(["Active", "Disabled", "SendDisabled"], eh.status)])
+    error_message = "Each Event Hub status must be one of the following: Active, Disabled, SendDisabled."
+  }
 }
